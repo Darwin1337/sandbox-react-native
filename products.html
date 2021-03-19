@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+    function checkCookie() {
+        if (document.cookie == false) {
+            window.location.href = "/?my_param=pluma";
+        }
+    }
+    window.onload = function() {
+            checkCookie();
+    };
+    </script>
+</head>
+<body>
+<div class="jumbotron text-center">
+    <h1 id="productsTitle">Products Catalogue</h1>
+</div>
+<div class="container">
+    <div class="row py-5">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <label for="contractList">Contract:</label>
+            <select id="contractList" class="custom-select" multiple>
+                <option selected value="new">New</option>
+                <option selected value="extend">Extend</option>
+                <option value="cancel">Cancel</option>
+            </select>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-info">
+                <strong>TV + Voice</strong>
+            </div>
+        </div>
+        <div class="col">
+            <div class="alert alert-info">
+                <strong>TV + Net</strong>
+            </div>
+        </div>
+        <div class="col">
+            <div class="alert alert-info">
+                <strong>TV + Net + Voice</strong>
+            </div>
+        </div>
+        <div class="w-100"></div>
+        <div class="col">
+            <div class="alert alert-info">
+                <strong>TV only</strong>
+            </div>
+        </div>
+        <div class="col">
+            <div class="alert alert-info">
+                <strong>Voice only</strong>
+            </div>
+        </div>
+        <div class="col">
+            <div class="alert alert-info">
+                <strong>Net only</strong>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col center-block text-center py-5">
+            <iframe id="footeriFrame" frameborder="0" height="50" scrolling="no"
+                    srcdoc="<html><body><h4 style='text-align:center' id='footerMessage'>Pluma&copy; Sandbox</h4></body></html>"></iframe>
+        </div>
+    </div>
+</div>
+</body>
+</html>

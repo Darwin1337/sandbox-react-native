@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Subscription Configurator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/loader.js"></script>
+    <script>
+    function priceCalculator() {
+        document.getElementById("loader").classList.remove('d-none');
+        document.getElementById("priceLabel").classList.add('d-none');
+        document.getElementById("price").classList.add('d-none');
+        document.getElementById("feeLabel").classList.add('d-none');
+        document.getElementById("fee").classList.add('d-none');
+        document.getElementById("totalLabel").classList.add('d-none');
+        document.getElementById("total").classList.add('d-none');
+        document.getElementById("subscriptionPriceLabel").classList.add('d-none');
+        document.getElementById("subscriptionPrice").classList.add('d-none');
+        document.getElementById("selectedConfigurationComments").classList.add('d-none');
+        document.getElementById("selectedConfigurationCommentsLabel").classList.add('d-none');
+        document.getElementById("selectedConfigurationFileLabel").classList.add('d-none');
+        setTimeout(function(){
+            document.getElementById("loader").classList.add('d-none');
+            document.getElementById("priceLabel").classList.remove('d-none');
+            document.getElementById("price").classList.remove('d-none');
+            document.getElementById("feeLabel").classList.remove('d-none');
+            document.getElementById("fee").classList.remove('d-none');
+            document.getElementById("totalLabel").classList.remove('d-none');
+            document.getElementById("total").classList.remove('d-none');
+            document.getElementById("subscriptionPriceLabel").classList.remove('d-none');
+            document.getElementById("subscriptionPrice").classList.remove('d-none');
+            document.getElementById("selectedConfigurationComments").classList.remove('d-none');
+            document.getElementById("selectedConfigurationCommentsLabel").classList.remove('d-none');
+            document.getElementById("selectedConfigurationFileLabel").classList.remove('d-none');
+        }, 3000);
+        var typeMultiplier = document.getElementById("type").value;
+        var supportMultiplier = document.getElementById("support").value;
+        var monthlyDuration = document.getElementById("duration").value;
+        var typeText = document.getElementById("type").selectedOptions[0].text;
+        var supportText = document.getElementById("support").selectedOptions[0].text;
+        var commentsText = document.getElementById("comments").value;
+        var attachmentName = document.getElementById("attachment").value;
+        if (typeMultiplier == 7 && supportMultiplier == 8) {
+            confirm("null"); }
+        else if (isNaN(monthlyDuration) || monthlyDuration < 1 || monthlyDuration > 12) {
+            confirm("Monthly duration is not valid");
+        } else {
+            var price = 24.99 * parseInt(typeMultiplier) * parseInt(supportMultiplier) * parseInt(monthlyDuration);
+            document.getElementById("price").innerHTML = price.toFixed(2) + " $";
+            var fee = 50;
+            document.getElementById("fee").innerHTML = fee.toFixed(2) + " $";
+            var total = fee + price;
+            document.getElementById("total").innerHTML = total.toFixed(2)+ " $";
+            document.getElementById("subscriptionPrice").innerHTML = total.toFixed(2) + " $";
+            document.getElementById("subscriptionPrice").value = total.toFixed(2) + " $";
+            document.getElementById("selectedConfigurationSummary").innerHTML = typeText +  " " + supportText + " for " + monthlyDuration + " month(s)";
+            document.getElementById("selectedConfigurationComments").innerHTML = commentsText;
+            document.getElementById("comments").innerHTML = commentsText;
+            document.getElementById("selectedConfigurationFile").innerHTML = attachmentName;
+        }
+    }
+    $(function(){
+      $('.container').keypress(function(e){
+        if(e.which == 13) {
+          document.getElementById("calculate").click();
+        }
+      })
+    })
+    function showMessage() {
+        var date = new Date();
+        var minutes = date.getMinutes();
+        setTimeout(function() {
+            $('#message').fadeIn();
+            document.getElementById("mouseOverMe").setAttribute("class", "alert alert-secondary");
+            if (minutes%2 == 0) {
+                $('#surpriseMessage').fadeIn();
+            } else {
+                document.getElementById("surpriseMessage").style.display = "none";
+            }
+        }, 1000);
+    }
+    function alertPrize() {
+        alert("Congratulations! You won a prize.");
+    }
+    function setCookie(name,value,days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    }
+    window.onload = function() {
+        setCookie("cookie","cookie", 1);
+    };
+    </script>
+    <script type="text/javascript" src="js/chart.js">
+    </script>
+</head>
+<body>
+<div class="jumbotron text-center">
+    <h1>Product Subscription Configurator</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <label for="type">Type:</label>
+            <select id="type" class="form-control">
+                <option value="1">Regular</option>
+                <option value="3">Special</option>
+                <option value="5">Extra Special</option>
+                <option value="7">Premium</option>
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <label for="support">Support Plan:</label>
+            <select id="support" class="form-control">
+                <option value="1">Basic</option>
+                <option value="3">Plus</option>
+                <option value="5">Full</option>
+                <option value="8">Full Extended</option>
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <label for="duration">Monthly duration:</label>
+            <input class="form-control" type="number" id="duration">
+        </div>
+    </div>
+    <div class="row py-5">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <label for="comments">Comments:</label>
+            <textarea class="form-control" id="comments"
+                      rows="2">Add a comment...</textarea>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    <div class="row py-3">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <label for="attachment">Attachment:</label>
+            <input type="file" class="form-control-file" id="attachment">
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    <div class="row">
+        <div class="col center-block text-center py-5">
+            <button id="calculate" type="button" class="btn btn-primary btn-lg"
+                    onclick="priceCalculator()">Calculate
+            </button>
+        </div>
+    </div>
+    <div id="loader" class="row d-none">
+        <div class="col center-block text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Your selection summary:</h5>
+                    <p id="selectedConfigurationSummary" class="card-text">Choose above
+                        the
+                        options that best suit your needs.</p>
+                    <h6 id="priceLabel" class="card-subtitle mb-2 text-muted">Price:</h6>
+                    <p id="price">0 $</p>
+                    <h6 id="feeLabel" class="card-subtitle mb-2 text-muted">Fee:</h6>
+                    <p id="fee">0 $</p>
+                    <h6 id="totalLabel" class="card-subtitle mb-2 text-muted">Total:</h6>
+                    <p id="total">0 $</p>
+                    <h6 id="subscriptionPriceLabel" class="card-subtitle mb-2 text-muted">
+                        Your
+                        subscription price:</h6>
+                    <p id="subscriptionPrice">0 $</p>
+                    <h6 class="card-subtitle mb-2 text-muted" id="selectedConfigurationCommentsLabel">Your comments:</h6>
+                    <textarea disabled id="selectedConfigurationComments"></textarea>
+                    <h6 class="card-subtitle mb-2 text-muted" id="selectedConfigurationFileLabel">Attached file:</h6>
+                    <p id="selectedConfigurationFile"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col center-block text-center py-5">
+            <div class="alert alert-primary" role="alert" id="mouseOverMe"
+                 onmouseover="showMessage()">
+                <a id="productsCatalogue" target="_blank" href="products.html">See our
+                    products</a>
+            </div>
+            <p id="message" style="display:none;">Simulate your subscription cost</p>
+            <p><a id="surpriseMessage" style="display:none;" href="#">Try here</a></p>
+            <button id="winAPrize" type="button" class="btn btn-outline-primary btn-sm"
+                    onclick="return false" ondblclick="alertPrize()">Win a
+                prize
+            </button>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">See our sales progress</h5>
+                    <div class="card-body">
+                        <div id="salesChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col center-block text-center py-3">
+            <iframe id="footeriFrame" frameborder="0" height="50" scrolling="no"
+                    srcdoc="<html><body><h4 style='text-align:center' id='footerMessage'>Pluma&copy; Sandbox</h4></body></html>"></iframe>
+        </div>
+    </div>
+</div>
+</body>
+</html>
