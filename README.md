@@ -1,3 +1,5 @@
-# Sandbox Web
+# Sandbox React Native
 
-The goal of this project is to be used to support an automation challenge testing by providing a web application.
+This is the React Native version of Celfocus Sandbox https://github.com/qa-automation-challenge/sandbox
+Download the .apk to use it on your local tests or compile it yourself
+
